@@ -28,6 +28,10 @@ body{
   align-items: center;
 }
 
+.sliderBox{
+  align-items: center;
+}
+
 .middle{
   flex: none;
   height: 90vh;
