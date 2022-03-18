@@ -4,7 +4,17 @@ let etchGrid = [];
 
 const resetButton = document.querySelector('button');
 
-const gridContainer = document.querySelector(".gridContainer");
+const grid = document.querySelector(".grid");
+const sliderText = document.querySelector('.sliderText');
+const slider = document.querySelector('.slider');
+sliderText.textContent = `${slider.value} x ${slider.value} Grid`;
+
+slider.addEventListener('input', updateValues)
+
+function updateValues(){
+  gridSize = slider.value;
+  sliderText.textContent = `${slider.value} x ${slider.value} Grid`;
+}
 
 function darken(e){
   let color = e.target.style.backgroundColor;
@@ -17,7 +27,7 @@ function darken(e){
     color = color.slice(1);
     color = String.prototype.concat('0x', color);
   }
-  let num = color - 0x111111;
+  let num = color - 0x333333;
   console.log(num.toString(16));
   e.target.style.backgroundColor = String.prototype.concat('#', num.toString(16));
   //let final = String.prototype.concat('#', num);
@@ -43,13 +53,27 @@ function makeGrid(gridSize){
   for (let i = 0; i < gridSize * gridSize; i++){
     etchGrid[i] = document.createElement('div');
     etchGrid[i].classList.add('cell');
+    etchGrid[i].style.border = '2px solid darkgrey';
     etchGrid[i].addEventListener('mouseover', darken);
-    gridContainer.append(etchGrid[i]);
+    grid.style.gridTemplateColumns = `repeat(${gridSize}, 2fr)`;
+    grid.style.gridTemplateRows = `repeat(${gridSize}, 2fr)`;
+    grid.append(etchGrid[i]);
   }
 }
 
+function removeAllChildren(parent){
+  while(parent.firstChild){
+    parent.removeChild(parent.firstChild);
+  }
+}
 
+function reset(){
+  console.log('hi');
+  etchGrid.forEach((e) => e.style.backgroundColor = '#FFFFFF')
+  removeAllChildren(grid);
+  makeGrid(gridSize);
+}
 
-resetButton.addEventListener('click', reset)
+resetButton.addEventListener('click', reset);
 
 makeGrid(gridSize);
