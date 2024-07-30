@@ -1,4 +1,5 @@
-# etch-a-sketch
-Odin Project #4
+# Etch-a-Sketch
 
-More javascript practice.
+The Odin Project #4
+
+Etch-a-Sketch program written in Javascript. 
